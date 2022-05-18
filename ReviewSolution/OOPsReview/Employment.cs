@@ -23,6 +23,8 @@ namespace OOPsReview.Data
         //  are storage areas in your class
         //  these are treated as variables
         //  these may be public, private, public readonly
+        private string _Title;
+        private double _Years;
 
         //property
         //  These are access techniques to retrieve or set data in
@@ -38,11 +40,72 @@ namespace OOPsReview.Data
         //  public: the user can alter the contents of the data
         //  private: only code within the class can alter the contents
 
+        //fully implented property
+        // a) a declared storage area (data field)
+        // b) a declared property signature (access rdt propertyname)
+        // c) a coded accessor (get) : public
+        // d) an optional coded mutator (set) : public or private
+        //  if the set is private and only 
+
+
         public string Title
         {
-            get;
-            set;
+            get 
+            {
+                //accessor
+                //teh get "method" will return teh contents of a data field(s)
+                //the return has syntax of return expression
+                return _Title;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new AggregateException("Title is a required piece of data.");
+                }
+
+                //data is consider valid
+                _Title = value;
+            }
         }
 
+        public SupervisoryLevel Level { get; set; }
+
+        public double Years
+        {
+            get { return _Years; }
+            set
+            {
+                if (!Utilities.IsZeroPositive(value))
+                {
+                    throw new ArgumentOutOfRangeException($"Years of {value} is invalid.");
+                }
+                _Years = value;
+            }
+        }
+
+        public Employment()
+        {
+            Level = SupervisoryLevel.TeamMember;
+            Title = "Unknown";
+        }
+
+        //Greedy Constructor
+        public Employment(string title, SupervisoryLevel level, double years = 0.0)
+        {
+            Title=title;
+            Years=years;
+            Level = level;
+        }
+
+        public override string ToString()
+        {
+            return $"{Title},{Level},{Years}"; 
+        }
+
+        public void SetEmploymentResponsibilityLevel(SupervisoryLevel level)
+        {
+            Level = level;
+        }
     }
 }

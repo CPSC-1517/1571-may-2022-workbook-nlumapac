@@ -100,7 +100,7 @@ namespace OOPsReview.Data
 
         public override string ToString()
         {
-            return $"{Title},{Level},{Years}"; 
+            return $"{Title}, {Level}, {Years}"; 
         }
 
         public void SetEmploymentResponsibilityLevel(SupervisoryLevel level)

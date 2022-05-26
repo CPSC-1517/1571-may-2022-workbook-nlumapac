@@ -57,7 +57,6 @@ namespace ReviewUnitTests
         [TestMethod]
         [DataRow(" ", SupervisoryLevel.TeamLeader, 5.5)]        //tests for bad title
         [DataRow("Unit Test Designer", SupervisoryLevel.TeamLeader, -5.5)]     //tests for negative years
-        
         public void Employment_BadGreedy_EmploymentNotMade(string title, SupervisoryLevel level, double years)
         {
             try
@@ -85,6 +84,7 @@ namespace ReviewUnitTests
                 Assert.IsTrue(ex.Message.Length > 0, "Exception contained no message.");
             }
         }
+
         [TestMethod]
         [DataRow("Unit Test Designer",SupervisoryLevel.Owner,25.2)]
         public void Employnebt_ToStringDisplay_GoodDisplay(string title, SupervisoryLevel level, double years)
@@ -101,6 +101,19 @@ namespace ReviewUnitTests
             {
                 Assert.Fail($"Unexpected exception of type {ex.GetType()} caught {ex.Message}");
             }
+        }
+
+        [TestMethod]
+        public void Employment_SetSupervisoryLevel_GoodSet()
+        {
+            //Arrange (setup of data)
+            Employment employment = new Employment("Boss", SupervisoryLevel.DepartmentHead, 3.5);
+
+            //Act (ca
+            employment.SetEmploymentResponsibilityLevel(SupervisoryLevel.Owner);
+
+            //Assess
+            Assert.IsTrue(employment.Level == SupervisoryLevel.Owner, $"Employment level of {employment.Level} was not changed.");
         }
     }
 }
